@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Body from "./Components/Body"
-import Login from "./Components/Login"
-import Profile from "./Components/Profile"
-import Connections from "./Components/Connections"
+import Body from "./Pages/Body"
+import Login from "./Pages/Login"
+import Profile from "./Pages/Profile"
+import Connections from "./Pages/Connections"
 import { Provider } from "react-redux"
 import appStore from "./Utils/appStore"
-import Feed from "./Components/Feed"
-import Signup from "./Components/Signup"
+import Feed from "./Pages/Feed"
+import Signup from "./Pages/Signup"
+import ConnectionRequests from "./Pages/ConnectionRequests"
+import Dashboard from "./Pages/Dashboard"
+import NotFound from "./Pages/NotFound"
 
 function App() {
 
@@ -18,9 +21,12 @@ function App() {
         <Route path="/" element={<Feed />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signup" element={<Signup />}/>
+          <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/connections" element={<Connections />}/>
+          <Route path="/connection-requests" element={<ConnectionRequests />}/>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
     </Provider>

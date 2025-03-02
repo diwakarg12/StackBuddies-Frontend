@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Header from "./Header"
-import Footer from "./Footer";
+import Header from "../Components/Header"
+import Footer from "../Components/Footer";
 import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";

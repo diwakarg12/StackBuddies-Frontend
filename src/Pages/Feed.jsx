@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import FeedCard from "./FeedCard"
+import FeedCard from "../Components/FeedCard"
 import axios from "axios"
-import { BASE_URL } from "./Constants"
+import { BASE_URL } from "../Components/Constants"
 import { useDispatch, useSelector } from "react-redux"
 import { addFeed } from "../Utils/feedSlice"
 
