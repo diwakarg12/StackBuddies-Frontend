@@ -37,8 +37,8 @@ const Header = () => {
             <ul 
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><Link to={'/dashboard'}>Dashboard</Link></li>
-              <li><Link to={'/profile'}>Edit Profile</Link></li>
+                <li><Link to={'/profile'}>Dashboard</Link></li>
+              <li><Link to={'/edit-profile'}>Edit Profile</Link></li>
               <li><Link to={'/connections'}>Connections</Link></li>
               <li><Link to={'/connection-requests'}>Connection Requests</Link></li>
               <li><button onClick={handleLogout}>Logout</button></li>

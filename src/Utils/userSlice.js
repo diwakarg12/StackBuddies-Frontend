@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
@@ -8,7 +9,7 @@ const userSlice = createSlice({
             return action.payload;
         },
         removeUser: (state, action) => {
-            return action.payload;
+            return null;
         },
     },
 });

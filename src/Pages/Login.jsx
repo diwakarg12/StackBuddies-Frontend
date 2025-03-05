@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState('yash@gmail.com');
   const [password, setPassword] = useState('Yash@12345');
   const [error, setError] = useState(null);
+  const [Notify, setNotify] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,14 +20,32 @@ const Login = () => {
           password
         },{ withCredentials: true }
       );
+      console.log(res.data.user)
     dispatch(addUser(res.data.user))
-    return navigate('/')
+    setNotify(true)
+    setTimeout(()=>{
+      setNotify(false);
+      navigate('/edit-profile')
+    }, 1000);
     } catch (error) {
+      console.log(error.response.data.message)
       setError(`Error: ${error.response.data.message}`)
     }
   }
   return (
-    <div className="card bg-base-100 w-96 shadow-xl mx-auto my-16 border">
+    <>
+    {
+      Notify ? (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+          <span className="loading loading-bars loading-xl"></span>
+          <div className="toast toast-top toast-center">
+            <div className="alert alert-success text-white font-medium">
+              <span>Login Successfully, Please Update Your Profile Now.</span>
+            </div>
+          </div>
+        </div>
+      ): (
+        <div className="card bg-base-100 w-96 shadow-xl mx-auto my-16 border">
       <div className="card-body">
         <h2 className="card-title my-1 text-3xl font-bold">Login</h2>
 
@@ -64,6 +83,9 @@ const Login = () => {
         </div>
       </div>
     </div>
+      )
+    }
+    </>
   )
 };
 

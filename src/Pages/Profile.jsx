@@ -16,6 +16,7 @@ const Profile = () => {
   const [image, setImage] = useState(user.profileUrl);
   const [skill, setSkill] = useState(user.skills || []);
   const [interest, setInterest] = useState("")
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("user", update)
@@ -66,19 +67,35 @@ const Profile = () => {
   }));
   }
   const handleUpdate = async() => {
+    setLoading(true);
     try {
       const {email, password, _id, __v, updatedAt, createdAt, ...updatableData} = update;
       const res = await axios.patch(BASE_URL+'/profile/edit', updatableData, {withCredentials: true});
       console.log('Updated Data', res.data.user);
       dispatch(addUser(res.data.user))
-      navigate('/')
-
+      setTimeout(()=>{
+        setLoading(false);
+        navigate('/');
+      }, 1000)
+      
     } catch (error) {
       setError(`Error: ${error.message}`)
     }
   }
   return (
-     <div className="p-10">
+     <>
+     {
+      loading ? (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+          <span className="loading loading-bars loading-xl"></span>
+          <div className="toast toast-top toast-center">
+            <div className="alert alert-success text-white font-medium">
+              <span>Login Successfully, Please Update Your Profile Now.</span>
+            </div>
+          </div>
+        </div>
+      ):(
+        <div className="p-10">
         <div className="justify-center flex items-center">
             <ProfileImageUpload handleImageChange={handleImageChange} image={image} />
         </div>
@@ -107,6 +124,9 @@ const Profile = () => {
             </div>
             {error && <p className="font-medium text-xl text-red-700 mx-28">{error}</p>}
     </div>
+      )
+     }
+     </>
   )
 }
 

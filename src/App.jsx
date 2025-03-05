@@ -13,6 +13,8 @@ import NotFound from "./Pages/NotFound"
 
 function App() {
 
+
+
   return (
     <Provider store={appStore}>
       <BrowserRouter basename="/">
@@ -21,8 +23,8 @@ function App() {
         <Route path="/" element={<Feed />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signup" element={<Signup />}/>
-          <Route path="/dashboard" element={<Dashboard />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile" element={<Dashboard />}/>
+          <Route path="/edit-profile" element={<Profile />}/>
           <Route path="/connections" element={<Connections />}/>
           <Route path="/connection-requests" element={<ConnectionRequests />}/>
         </Route>
