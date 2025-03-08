@@ -40,7 +40,7 @@ const Login = () => {
           <span className="loading loading-bars loading-xl"></span>
           <div className="toast toast-top toast-center">
             <div className="alert alert-success text-white font-medium">
-              <span>Login Successfully, Please Update Your Profile Now.</span>
+              <span>Login Successfully</span>
             </div>
           </div>
         </div>

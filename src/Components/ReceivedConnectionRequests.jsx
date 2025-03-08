@@ -13,7 +13,7 @@ const ReceivedConnectionRequests = () => {
         <div className="flex items-center justify-center gap-x-4 my-8">
             {
                 receivedRequests?.map(request =>(
-                    <ConnectionCard key={request._id} user={request} flag={true} />
+                    <ConnectionCard key={request._id} user={request.fromUserId} flag={true} />
                 ))
             }
         </div>

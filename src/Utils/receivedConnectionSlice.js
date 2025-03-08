@@ -1,15 +1,18 @@
-/* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
 const receivedConnectionSlice = createSlice({
     name: 'receivedConnection',
-    initialState: null,
+    initialState: [],
     reducers: {
         addReceivedConection: (state, action) => {
-            return action.payload;
+            const existingConnection = state.find(req => req._id === action.payload._id);
+            if (!existingConnection) {
+                return [...state, action.payload];
+            }
+            return state;
         },
         removeReceivedConnection: (state, action) => {
-            return null;
+            return state.filter(req => req._id !== action.payload);
         },
     },
 });

@@ -7,7 +7,6 @@ import ReceivedConnectionRequests from "../Components/ReceivedConnectionRequests
 import SentConnectionRequests from "../Components/SentConnectionRequests"
 import { addSentConnection } from "../Utils/sentConnectionSlice"
 
-
 const ConnectionRequests = () => {
   const [request, setRequest] = useState(1);
   const dispatch = useDispatch();
@@ -16,9 +15,10 @@ const ConnectionRequests = () => {
   }
   const fetchRequests = async() => {
     try {
-      const receivedRequests = await axios.get(BASE_URL+'/user/reviewReceivedRequest', {withCredentials: true});
-      const sentRequests = await axios.get(BASE_URL+'/user/reviewSentRequests',{withCredentials: true});
-      console.log('Sent',sentRequests.data.SentRequest)
+      const receivedRequests = await axios.get(BASE_URL+'/user/reviewReceivedRequest', {},{withCredentials: true});
+      const sentRequests = await axios.get(BASE_URL+'/user/reviewSentRequests', {}, {withCredentials: true});
+      console.log('Sent',sentRequests.data.SentRequests);
+      console.log('Received',receivedRequests.data.receivedRequests);
       dispatch(addReceivedConection(receivedRequests.data.connections))
       dispatch(addSentConnection(sentRequests.data.SentRequest))
     } catch (error) {

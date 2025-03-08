@@ -29,7 +29,7 @@ const Profile = () => {
       [name]: value,
     }))
   };
-  console.log(update.firstName);
+  console.log(update);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

@@ -9,24 +9,28 @@ import { addFeed } from "../Utils/feedSlice"
 const Feed = () => {
     const dispatch = useDispatch();
     const feed = useSelector(store => store.feed);
-    const handleFeed = async() => {
+
+    const showFeed = async() => {
         try {
             const res = await axios.get(BASE_URL+"/user/feed",{withCredentials: true})
-            dispatch(addFeed(res?.data?.user))
+            console.log('feed', res.data.feed);
+            dispatch(addFeed(res?.data?.feed))
         } catch (error) {
             console.log("Error: ",error)
         }
     }
 
     useEffect(()=>{
-        handleFeed();
+        showFeed();
     }, [])
+
+    if(!feed || feed.length === 0){
+        return <h1 className="text-center py-20 text-3xl font-semibold">No more user left in the feed</h1>
+    }
     
   return (
     <div className="flex flex-col gap-3 items-center justify-center">
-        {
-            feed?.map(user=><FeedCard key={user._id} user={user}/>)
-        }
+      <FeedCard user={feed[0]}/>  
     </div>
   )
 }

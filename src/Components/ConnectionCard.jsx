@@ -4,7 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "./Constants";
 
 const ConnectionCard = ({user, flag}) => {
-    const {firstName, lastName, age, gender, about, skills, profileUrl, _id} = user;
+    // console.log('User', user.toUserId.firstName)
+    const {firstName, lastName, age, gender, about, skills, profileUrl, _id, profile} = user;
     
     const handleRequest = async(status) => {
         try {
@@ -26,16 +27,34 @@ const ConnectionCard = ({user, flag}) => {
                 />
             </figure>
         }
+        {
+            profile && 
+            <figure>
+                <img
+                    src={profile}
+                    alt={`${firstName} Profile`} className="rounded-md"
+                />
+            </figure>
+        }
         <div className="card-body">
-            <h1 className="card-title text-2xl font-bold">{`${firstName} ${lastName}`}</h1>
-            <p className="">{about}</p>
-            { age && gender && <div className="card-actions my-2">
-                <div className="badge badge-outline py-3 px-6 text-black text-base bg-secondary">Age: {age}</div>
-                <div className="badge badge-outline py-3 px-6 text-black text-base bg-secondary">Gender: {gender}</div>
-            </div>}
-            <div>
-                <span className="font-bold text-lg">Skills:</span> {skills.join(" , ")}
-            </div>
+            {firstName && lastName &&
+                <h1 className="card-title text-2xl font-bold">{`${firstName} ${lastName}`}</h1>
+            }
+            {about && 
+                <p className="">{about}</p>
+            }
+            { age && gender && 
+                <div className="card-actions my-2">
+                    <div className="badge badge-outline py-3 px-6 text-black text-base bg-secondary">Age: {age}</div>
+                    <div className="badge badge-outline py-3 px-6 text-black text-base bg-secondary">Gender: {gender}</div>
+                </div>
+            }
+            {
+                skills && 
+                <div>
+                    <span className="font-bold text-lg">Skills:</span> {skills.join(" , ")}
+                </div>
+            }
             {
                 flag &&
                 <div className="card-actions justify-s">
