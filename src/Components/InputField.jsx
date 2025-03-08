@@ -1,11 +1,25 @@
 /* eslint-disable react/prop-types */
 
-const InputField = ({label, inputType, placeholder, isDisable=false, value, onChange, name}) => {
+const InputField = ({label, inputType, value, onChange, name}) => {
   return (
-    <fieldset className="fieldset w-[48%] my-2">
-      <legend className="fieldset-legend text-white text-xl font-medium mx-2">{label}</legend>
-      <input type={inputType} value={value} name={name} onChange={onChange} readOnly={isDisable} className="input border text-xl focus:outline-none text-gray-100 border-gray-400 rounded-md w-full" placeholder={placeholder} />
-    </fieldset>
+		  <div>
+		  	<label htmlFor='name' className='block text-sm font-medium text-gray-700'>
+		  		{label}
+		  	</label>
+		  	<div className='mt-1'>
+		  		<input
+		  			id={name}
+		  			name={name}
+		  			type={inputType}
+		  			required
+		  			value={value}
+		  			onChange={onChange}
+		  			className='bg-white text-black appearance-none block w-full px-3 py-2 border border-gray-300
+		  			 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 
+		  			sm:text-sm'
+		  		/>
+		  	</div>
+		  </div>
   )
 }
 

@@ -17,7 +17,7 @@ const Header = () => {
     }
   }
   return (
-    <div className="navbar bg-base-300">
+    <div className="navbar bg-black">
         <div className="flex-1">
             <Link to={'/'} className="btn btn-ghost text-xl font-bold">STACKBUDDIES</Link>
         </div>
@@ -37,8 +37,7 @@ const Header = () => {
             <ul 
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><Link to={'/profile'}>Dashboard</Link></li>
-              <li><Link to={'/edit-profile'}>Edit Profile</Link></li>
+              <li><Link to={'/profile'}>Profile</Link></li>
               <li><Link to={'/connections'}>Connections</Link></li>
               <li><Link to={'/connection-requests'}>Connection Requests</Link></li>
               <li><button onClick={handleLogout}>Logout</button></li>

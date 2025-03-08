@@ -3,7 +3,7 @@
 const ProfileImageUpload = ({handleImageChange, image}) => {
 
   return (
-    <div className="flex h-44 w-44 flex-col justify-center items-center">
+    <div className="flex h-44 w-44 flex-col justify-center items-center mb-2">
       {/* The wrapper div with Tailwind classes */}
       <div className="relative w-44 h-44">
         <input 
@@ -28,9 +28,6 @@ const ProfileImageUpload = ({handleImageChange, image}) => {
           )}
         </div>
       </div>
-      {
-        image && <p className='w-40 text-xs font-bold text-center text-red-500'>Click on the Image to Change the image</p>
-      }
     </div>
   );
 };

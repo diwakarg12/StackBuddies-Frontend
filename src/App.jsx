@@ -8,12 +8,9 @@ import appStore from "./Utils/appStore"
 import Feed from "./Pages/Feed"
 import Signup from "./Pages/Signup"
 import ConnectionRequests from "./Pages/ConnectionRequests"
-import Dashboard from "./Pages/Dashboard"
 import NotFound from "./Pages/NotFound"
 
 function App() {
-
-
 
   return (
     <Provider store={appStore}>
@@ -23,8 +20,7 @@ function App() {
         <Route path="/" element={<Feed />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signup" element={<Signup />}/>
-          <Route path="/profile" element={<Dashboard />}/>
-          <Route path="/edit-profile" element={<Profile />}/>
+          <Route path="/profile" element={<Profile />}/>
           <Route path="/connections" element={<Connections />}/>
           <Route path="/connection-requests" element={<ConnectionRequests />}/>
         </Route>

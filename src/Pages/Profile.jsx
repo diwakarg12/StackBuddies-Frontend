@@ -8,6 +8,8 @@ import { BASE_URL } from "../Components/Constants"
 import { useSelector, useDispatch } from "react-redux"
 import { addUser } from "../Utils/userSlice"
 import { useNavigate } from "react-router-dom"
+import InputDropdown from "../Components/InputDropdown"
+import InputTextarea from "../Components/InputTextarea"
 
 const Profile = () => {
   const user = useSelector(store => store.user)
@@ -38,9 +40,10 @@ const Profile = () => {
       reader.onloadend = () => {
         const imageUrl = reader.result;
         setImage(imageUrl);
+        console.log('image', image)
         setUpdate(prevData =>({
           ...prevData,
-          profileUrl: imageUrl
+          profileUrl: image
         }));
       };
       reader.readAsDataURL(file);
@@ -73,60 +76,58 @@ const Profile = () => {
       const res = await axios.patch(BASE_URL+'/profile/edit', updatableData, {withCredentials: true});
       console.log('Updated Data', res.data.user);
       dispatch(addUser(res.data.user))
-      setTimeout(()=>{
-        setLoading(false);
-        navigate('/');
-      }, 1000)
-      
+      setLoading(false);
+      navigate('/');
     } catch (error) {
-      setError(`Error: ${error.message}`)
+      setError(`Error: ${error.message}`);
+      setLoading(false);
     }
   }
   return (
-     <>
-     {
-      loading ? (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-          <span className="loading loading-bars loading-xl"></span>
-          <div className="toast toast-top toast-center">
-            <div className="alert alert-success text-white font-medium">
-              <span>Login Successfully, Please Update Your Profile Now.</span>
+        <div className="p-10 min-h-screen bg-gray-100 flex flex-col">
+          <div className='flex-grow flex flex-col justify-center px-4 sm:px-6 lg:px-8'>
+            <div className='sm:mx-auto sm:w-full sm:max-w-md'>
+					    <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Your Profile</h2>
+				    </div>
+            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+              <div className='relative bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-200 space-y-4'>
+                <p className="absolute top-2 left-4 text-red-600 text-xs">Click on the Image to change the Image</p>
+                {/* Image */}
+                <ProfileImageUpload handleImageChange={handleImageChange} image={image} />
+                {/* First Name */}
+                <InputField label={'FirstName'} name={"firstName"} value={update.firstName} 
+                  onChange={handleChange} inputType={'text'} 
+                />
+                {/* Last Name */}
+                <InputField label={'LastName'} name={"lastName"} value={update.lastName} 
+                  onChange={handleChange} inputType={'text'} 
+                />
+                {/* Age */}
+                <InputField label={'Age'} name={"age"} value={update.age} onChange={handleChange}     
+                  inputType={'number'} 
+                />
+                {/* Gender */}
+                <InputDropdown label={'Gender'} name={"gender"} value={update.gender} 
+                  onChange={handleChange} options={['male', 'female', 'others']}
+                />
+                {/* About */}
+                <InputTextarea label={'About'} name={"about"} value={update.about} 
+                  onChange={handleChange} row={3}  
+                />
+                {/* Skills */}
+                <Interests name="skills" skills={skill} value={update.skills} handleAddInterests={handleAddInterests} onChange={handleChange} removeSkill={removeSkill} interest={interest} setInterest={setInterest} />
+                
+                <button onClick={handleUpdate} className="w-full border bg-gradient-to-br
+		              from-red-500 to-pink-500 py-1 rounded font-medium text-lg text-white hover:bg-gradient-to-br hover:from-red-700 hover:to-pink-700"
+                >
+                  Update Profile
+                </button>
+                {error && <p className="border font-medium text-lg text-red-700 text-center">{error}</p>}
+                </div>
+                
             </div>
           </div>
         </div>
-      ):(
-        <div className="p-10">
-        <div className="justify-center flex items-center">
-            <ProfileImageUpload handleImageChange={handleImageChange} image={image} />
-        </div>
-        <div className="flex flex-wrap gap-5 py-6 items-center justify-center mx-24">
-                <InputField label={'FirstName'} name={"firstName"} value={update.firstName} onChange={handleChange} isDisable={false} placeholder={'Enter Your FirstName'} inputType={'text'} />
-                <InputField label={'LastName'} name={"lastName"} value={update.lastName} onChange={handleChange} isDisable={false} placeholder={'Enter Your LastName'} inputType={'text'} />
-                <InputField label={'Email'} name={"email"} value={update.email} onChange={handleChange} isDisable={true} placeholder={'Enter Your Email'} inputType={'enail'} />
-                <InputField label={'Password'} name={"password"} value={update.password} onChange={handleChange} isDisable={true} placeholder={'Enter Your Password'} inputType={'password'} />
-                <InputField label={'Age'} name={"age"} value={update.age} onChange={handleChange} isDisable={false} placeholder={'Enter Your Age'} inputType={'number'} />
-                <div className="w-[48%]">
-                    <label htmlFor="gender" className="text-white text-xl font-medium mx-3">Gender</label>
-                    <input type="text" name="gender" value={update.gender} onChange={handleChange} className="input border text-xl text-gray-100 border-gray-400 rounded-md w-full" placeholder="Which browser do you use" id="gender" list="browsers"/>
-                    <datalist id="browsers">
-                        <option value="male" />
-                        <option value="female" />
-                        <option value="Other" />
-                    </datalist>
-                </div>
-                <div className="flex flex-col w-[98%]">
-                    <label htmlFor="about" className="text-white text-xl font-medium mx-3">About</label>
-                    <textarea name="about" value={update.about} onChange={handleChange} id="about" rows={4} placeholder="About Yourself" className="bg-base-100 w-full p-3 border text-xl text-gray-100 border-gray-400 rounded-md"></textarea>
-                </div>
-                <Interests name="skills" skills={skill} value={update.skills} handleAddInterests={handleAddInterests} onChange={handleChange} removeSkill={removeSkill} interest={interest} setInterest={setInterest} />
-                
-                <button onClick={handleUpdate} className="w-[98%] btn btn-success font-medium text-xl text-white mx-28">Update Profile</button>
-            </div>
-            {error && <p className="font-medium text-xl text-red-700 mx-28">{error}</p>}
-    </div>
-      )
-     }
-     </>
   )
 }
 
