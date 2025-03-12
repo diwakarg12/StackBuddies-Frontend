@@ -2,16 +2,16 @@
 
 
 const getFeedbackStyle = (swipeFeedback) => {
-	if (swipeFeedback === "liked") return "text-green-500";
-	if (swipeFeedback === "passed") return "text-red-500";
-	if (swipeFeedback === "matched") return "text-pink-500";
+	if (swipeFeedback === "interested") return "text-green-500";
+	if (swipeFeedback === "ignored") return "text-red-500";
+	if (swipeFeedback === "accepted") return "text-green-500";
 	return "";
 };
 
 const getFeedbackText = (swipeFeedback) => {
-	if (swipeFeedback === "liked") return "Liked!";
-	if (swipeFeedback === "passed") return "Passed";
-	if (swipeFeedback === "matched") return "It's a Match!";
+	if (swipeFeedback === "interested") return "Liked!";
+	if (swipeFeedback === "ignored") return "Passed";
+	if (swipeFeedback === "accepted") return "It's a Match!";
 	return "";
 };
 

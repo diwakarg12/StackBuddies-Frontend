@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { BASE_URL } from "./Constants";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Utils/userSlice";
+import { initializeSocket } from "../Socket/socket.client";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
 	const [firstName, setFirstName] = useState("");
@@ -11,13 +15,18 @@ const SignUpForm = () => {
 	const [age, setAge] = useState("");
     const [loading, setLoading] = useState(false);
 
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
     const handleSignup = async(e) => {
         try {
             e.preventDefault();
             setLoading(true);
             const res = await axios.post(BASE_URL+'/auth/signup', {firstName, lastName, email, password, gender, age}, {withCredentials: true})
+			initializeSocket(res?.data?.user?._id)
             console.log('Signup', res?.data?.user);
+			dispatch(addUser(res.data.user));
             setLoading(false);
+			navigate('/profile')
         } catch (error) {
             console.log('Error: ',error.message);
 			setLoading(false);

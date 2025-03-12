@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ProfileImageUpload from "../Components/ProfileImageUpload"
 import InputField from "../Components/InputField"
 import Interests from "../Components/Interests"
@@ -74,12 +74,12 @@ const Profile = () => {
     try {
       const {email, password, _id, __v, updatedAt, createdAt, ...updatableData} = update;
       const res = await axios.patch(BASE_URL+'/profile/edit', updatableData, {withCredentials: true});
-      console.log('Updated Data', res.data.user);
-      dispatch(addUser(res.data.user))
+      console.log('Updated Data', res?.data?.user);
+      dispatch(addUser(res?.data?.user))
       setLoading(false);
       navigate('/');
     } catch (error) {
-      setError(`Error: ${error.message}`);
+      setError(`Error: ${error}`);
       setLoading(false);
     }
   }

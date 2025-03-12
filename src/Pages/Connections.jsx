@@ -1,29 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// import { useEffect } from "react";
 import ConnectionCard from "../Components/ConnectionCard"
-import axios from "axios";
-import { BASE_URL } from "../Components/Constants";
-import { useDispatch, useSelector } from "react-redux";
-import { addConnection } from "../Utils/connectionSlice";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Connections = () => {
-  const dispatch = useDispatch();
   const connections = useSelector(store => store.connection);
   console.log('Connections', connections)
-  const fetchConnection = async() => {
-    try {
-      const res = await axios.get(BASE_URL+'/user/connections', {withCredentials: true});
-      console.log("Connections",res.data.connections);
-      dispatch(addConnection(res.data.connections))
-    } catch (error) {
-      console.log("Error", error)
-    }
-  };
-
-  useEffect(()=>{
-    fetchConnection();
-  }, [])
+  
   if(!connections || connections.length==0){
     return <div className="h-[calc(100vh-8.5rem)] bg-gray-100 flex items-center justify-center">
       <h1 className="font-semibold text-3xl text-black">No Connection Found</h1>

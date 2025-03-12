@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { initializeSocket } from "../Socket/socket.client";
 
 const LoginForm = () => {
 	const [email, setEmail] = useState("");
@@ -19,11 +20,12 @@ const LoginForm = () => {
 			console.log(email, password)
             const res = await axios.post('http://localhost:3200/auth/login', {email, password}, {withCredentials: true});
             console.log('login', res.data.user);
+			initializeSocket(res?.data?.user?._id)
             dispatch(addUser(res?.data?.user));
             setLoading(false);
 			navigate('/profile')
         } catch (error) {
-            console.log('Error: ',error.message);
+            console.log('Error: ',error);
 			setLoading(false);
         }
     }

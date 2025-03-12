@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { addUser } from "../Utils/userSlice";
+import { initializeSocket } from "../Socket/socket.client";
 
 
 const Body = () => {
@@ -18,11 +19,11 @@ const Body = () => {
       const res = await axios.get('http://localhost:3200/profile/view', {
         withCredentials: true
       });
-      dispatch(addUser(res.data.user))
-
+      initializeSocket(res?.data?.user?._id)
+      dispatch(addUser(res?.data?.user))
     } catch (error) {
 
-      if(error.status === 401){
+      if(error.status === 401 || error.status===404){
         navigate('/login');
       }else{
         console.log("Error", error.message)
@@ -44,6 +45,6 @@ const Body = () => {
     <Footer />
     </div>
   )
-}
+};
 
 export default Body
