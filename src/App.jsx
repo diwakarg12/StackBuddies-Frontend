@@ -9,6 +9,7 @@ import Feed from "./Pages/Feed"
 import Signup from "./Pages/Signup"
 import ConnectionRequests from "./Pages/ConnectionRequests"
 import NotFound from "./Pages/NotFound"
+import Chat from "./Pages/Chat"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Feed />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/signup" element={<Signup />}/>
+          <Route path="/chat/:userId" element={<Chat />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/connections" element={<Connections />}/>
           <Route path="/connection-requests" element={<ConnectionRequests />}/>

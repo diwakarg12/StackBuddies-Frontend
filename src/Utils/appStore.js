@@ -4,6 +4,7 @@ import feedReducer from './feedSlice';
 import connectionReducer from './connectionSlice';
 import sentConnectionReducer from './sentConnectionSlice';
 import receivedConnectionReducer from './receivedConnectionSlice';
+import messageReducer from './messageSlice'
 
 const appStore = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const appStore = configureStore({
         feed: feedReducer,
         connection: connectionReducer,
         sentConnection: sentConnectionReducer,
-        receivedConnection: receivedConnectionReducer
+        receivedConnection: receivedConnectionReducer,
+        message: messageReducer 
     },
 })
 
