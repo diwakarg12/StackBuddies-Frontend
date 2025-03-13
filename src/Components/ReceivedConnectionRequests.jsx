@@ -34,7 +34,7 @@ const ReceivedConnectionRequests = () => {
     }, [dispatch]);
 
     if (!receivedRequests || receivedRequests.length === 0) {
-        return <p className="font-bold text-lg py-8 text-center text-black min-h-[calc(100vh-50.9vh)]">You haven`t received any connection requests.</p>;
+        return <p className="font-bold text-lg py-8 text-center min-h-[calc(100vh-50.9vh)]">You haven&apos;t received any connection requests.</p>;
     }
 
     return (

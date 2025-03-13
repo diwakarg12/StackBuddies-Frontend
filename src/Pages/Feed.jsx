@@ -18,7 +18,7 @@ const Feed = () => {
     const dispatch = useDispatch();
     const user = useSelector(store =>store.user)
     const feed = useSelector(store => store.feed);
-    const [isLoadingUserProfiles, setIsLoadingUserProfiles] = useState(false);
+    const [isLoadingUserProfiles, setIsLoadingUserProfiles] = useState(true);
     let swipeFeedback=  '';
     const swipeRight = async(user) => {
         try {
@@ -82,9 +82,9 @@ const Feed = () => {
             const res = await axios.get(BASE_URL+"/user/feed",{withCredentials: true})
             console.log('feed', res.data.feed);
             dispatch(addFeed(res?.data?.feed))
-            setIsLoadingUserProfiles(false)
         } catch (error) {
             console.log("Error: ",error?.response?.data?.message)
+        }finally{
             setIsLoadingUserProfiles(false)
         }
     };
@@ -113,22 +113,30 @@ const Feed = () => {
     },[subscribeToNewConnection, unsubscribeFromNewConnection, user])
     
   return (
-    <div className='flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 overflow-hidden
+    <div className='flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-pink-200 to-purple-200 overflow-hidden
 	'>
         <Sidebar />
         <div className='flex-grow flex flex-col overflow-hidden'>
             {/* <Head /> */}
             <main className='flex-grow flex flex-col gap-44 justify-center items-center p-4 relative overflow-hidden'>
-                {feed?.length >= 0 && !isLoadingUserProfiles && (
-			    	<>
-			    		<SwipeArea users={feed} swipeLeft={swipeLeft} swipeRight={swipeRight} />
-                        <SwipeFeedback swipeFeedback={swipeFeedback} />
-			    	</>
-			    )}
+               {feed?.length > 0 && !isLoadingUserProfiles && (
+            <>
+              <SwipeArea users={feed} swipeLeft={swipeLeft} swipeRight={swipeRight} />
+              <SwipeFeedback swipeFeedback={swipeFeedback} />
+            </>
+          )}
 
-			    {feed.length === 0 && !isLoadingUserProfiles && <NoMoreProfiles />}
+          {feed.length === 0 && !isLoadingUserProfiles && (
+            <div className="flex justify-center items-center h-full">
+              <NoMoreProfiles />
+            </div>
+          )}
 
-			    {isLoadingUserProfiles && <LoadingUI />}
+          {isLoadingUserProfiles && (
+            <div className="flex justify-center items-center h-full">
+              <LoadingUI />
+            </div>
+          )}
 
             </main>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux"
 import ConnectionCard from "./ConnectionCard";
 import { useEffect } from "react";
@@ -23,7 +24,7 @@ const SentConnectionRequests = () => {
     fetchSentRequests();
   }, [])
     if(!sentRequests || sentRequests.length === 0){
-        return <p className="font-bold text-lg py-8 text-center text-black min-h-[calc(100vh-50.9vh)] ">You have`t sent any Connection Request</p>
+        return <p className="font-bold text-lg py-8 text-center min-h-[calc(100vh-50.9vh)] ">You have&apos;t sent any Connection Request</p>
     }
   return (
     <div className="my-8">

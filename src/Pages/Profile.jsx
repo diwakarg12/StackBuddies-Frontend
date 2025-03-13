@@ -13,15 +13,19 @@ import InputTextarea from "../Components/InputTextarea"
 
 const Profile = () => {
   const user = useSelector(store => store.user)
-  const [update, setUpdate] = useState(user)
+  const [update, setUpdate] = useState(user || [])
   const [error, setError] = useState("")
-  const [image, setImage] = useState(user.profileUrl);
-  const [skill, setSkill] = useState(user.skills || []);
+  const [image, setImage] = useState(user?.profileUrl || '/avatar.png');
+  const [skill, setSkill] = useState(user?.skills || []);
   const [interest, setInterest] = useState("")
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("user", update)
+
+  if(!user){
+    navigate('/login')
+  }
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -83,8 +87,10 @@ const Profile = () => {
       setLoading(false);
     }
   }
+
   return (
-        <div className="p-10 min-h-screen bg-gray-100 flex flex-col">
+        <div className="p-10 min-h-screen bg-gradient-to-br
+		from-red-500 to-pink-500 flex flex-col">
           <div className='flex-grow flex flex-col justify-center px-4 sm:px-6 lg:px-8'>
             <div className='sm:mx-auto sm:w-full sm:max-w-md'>
 					    <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Your Profile</h2>

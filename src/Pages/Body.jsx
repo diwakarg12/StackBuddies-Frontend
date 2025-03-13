@@ -22,8 +22,7 @@ const Body = () => {
       initializeSocket(res?.data?.user?._id)
       dispatch(addUser(res?.data?.user))
     } catch (error) {
-
-      if(error.status === 401 || error.status===404){
+      if(error.status == 401 || error.status == 404){
         navigate('/login');
       }else{
         console.log("Error", error.message)
